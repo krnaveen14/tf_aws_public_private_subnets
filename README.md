@@ -33,7 +33,7 @@ resource "terraform_remote_state" "tf_base" {
 }
 
 module "vpc" {
-  source = "github.com/bjss/tf_vpc_core"
+  source = "github.com/bjss/tf_aws_public_private_subnets"
 
   vpc_id = "${terraform_remote_state.tf_base.vpc_id}"
   name = "my-vpc"
