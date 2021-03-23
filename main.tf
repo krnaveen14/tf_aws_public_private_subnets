@@ -1,6 +1,6 @@
 resource "aws_internet_gateway" "mod" {
   vpc_id = "${var.vpc_id}"
-  tags {
+  tags = {
     Name = "${var.name}"
     project = "${var.project}"
     tf-module = "tf_vpc_core"
@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "mod" {
 
 resource "aws_route_table" "public" {
   vpc_id = "${var.vpc_id}"
-  tags {
+  tags = {
     Name = "${var.name}-public"
     project = "${var.project}"
     tf-module = "tf_vpc_core"
@@ -27,7 +27,7 @@ resource "aws_route" "public_internet_gateway" {
 resource "aws_route_table" "private" {
   vpc_id = "${var.vpc_id}"
   count = "${length(compact(split(",", var.private_subnets)))}"
-  tags {
+  tags = {
     Name = "${var.name}-private"
     project = "${var.project}"
     tf-module = "tf_vpc_core"
@@ -40,7 +40,7 @@ resource "aws_subnet" "private" {
   cidr_block = "${element(split(",", var.private_subnets), count.index)}"
   availability_zone = "${element(split(",", var.availability_zones), count.index)}"
   count = "${length(compact(split(",", var.private_subnets)))}"
-  tags {
+  tags = {
     Name = "${var.name}-private"
     project = "${var.project}"
     tf-module = "tf_vpc_core"
@@ -53,7 +53,7 @@ resource "aws_subnet" "public" {
   cidr_block = "${element(split(",", var.public_subnets), count.index)}"
   availability_zone = "${element(split(",", var.availability_zones), count.index)}"
   count = "${length(compact(split(",", var.public_subnets)))}"
-  tags {
+  tags = {
     Name = "${var.name}-public"
     project = "${var.project}"
     tf-module = "tf_vpc_core"
